@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "node_modules/bootstrap/dist/css/bootstrap.min.css";
+$primary_color_blue:#37ACEF;
+$color_black:#000;
+$primary_font_color:rgba(0, 0, 0, 0.41);;
+$color_white:#fff;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+
+body{
+    font-family: 'Inter';
+    background: rgba(211, 211, 211, 0.48) !important;
+}
+

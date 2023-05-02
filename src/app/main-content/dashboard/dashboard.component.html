@@ -1,0 +1,59 @@
+<app-header></app-header>
+<div class="row" style="margin-top: 70px; padding-left: 30px;">
+   
+    <div class="col-lg-6 ChooseVehicle">
+        <h2 style="font-size: 20px; padding-left: 15px;">
+            Choose Vehicle For Parking
+        </h2>
+       
+
+        <div class="row">
+           
+            <div class="col-lg-6" style="text-align: center;" *ngFor="let imgsrc of VechileList;" >
+                <!-- <ng-container  *ngFor="let imgsrc of imageSource"> -->
+                    <div class="vehicleTypeWrapper" data-toggle="modal" data-target="#model1" (click)="getVoucherType(imgsrc)">
+                   
+                        <img  [src]="imgsrc.buttonImage" alt="">
+                        <p>{{imgsrc.description}}</p>
+                    </div>
+
+                <!-- </ng-container> -->
+
+               
+
+
+            </div>
+        
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- popupModel -->
+
+
+<!-- Modal -->
+<div class="modal fade ChooseVehicleModel"   id="model1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog"    >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Voucher Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body"  *ngFor="let voucher of VoucherTypeList;">
+                <p>{{voucher.voucherName}}</p>
+               <!-- <p>voucherId:{{voucher.voucherId}}</p>
+                <p>Value : {{voucher.value}}</p> -->
+            </div>
+            <div class="modal-footer">
+
+                <!-- <button type="button" class="btn btn-primary">Save </button> -->
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg  header-top fixed-top " style=" background: #005cb3!important;">
+  <a class="navbar-brand"  style="color:#fff">IMS</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"><img src="../../../assets/menuicon.png" alt="" style="width: 35px;"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-md-auto d-md-flex">
+      <!-- <li class="nav-item">
+        <a class="nav-link">Dashboard
+          <span class="sr-only">(current)</span>
+        </a>
+      </li> -->
+    
+      <li class="nav-item">
+        <a class="nav-link"> {{UserProfile.user.userName}}</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" (click)="signout()" style="cursor: pointer;">Sign Out</a>
+        </li>
+    </ul>
+  </div>
+</nav>
+

@@ -1,0 +1,52 @@
+
+<div class="loginPage ">
+
+        <div class="row " style="margin-right: 0; margin-left: 0;">
+            <div class="col-lg-7 loginbackground"></div>
+            <div class="col-lg-5">
+                <div class="loginForm">
+                <h2>
+                    Sign In to Ims Parking System
+                </h2>
+
+                <div class="forms">
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)"  >
+                        <div class="form-group">
+                         
+                          <input type="text" class="form-control" id="uname"  name="uname"  placeholder="Username"
+                          formControlName="username" >
+                           <!-- <div class="inputFieldWrapper">
+                            <small class="form-text text-danger text-left msgtext" >
+                                Username is required !
+                              </small>
+                           </div> -->
+                           
+                          
+                          
+                </div>
+                        
+                        <div class="form-group">
+                        
+                          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"  formControlName="password" >
+                        
+                        </div>
+                        <div class="forgetPassword" style="float: right;">
+                            <span class="" style="color:#93C7E6; font-weight: bold; cursor: Pointer;" [routerLink]="['/changePassword']">  Change Password?</span>
+
+                        </div>
+                       
+                   <div class="row justify-content-center" style="margin-top: 70px;">
+                    <button type="submit" class="btn btn-primary" style="background-color: #F14053; border: none;">LOGIN</button>
+                   </div>
+                      
+                      
+                      </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
