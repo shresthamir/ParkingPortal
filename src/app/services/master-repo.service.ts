@@ -12,10 +12,8 @@ export class MasterRepoService {
 
 
   constructor(private router: Router, public http: HttpClient, public authService: AuthServiceService,) { 
-    this.apiUrl =  environment.baseUrl
+    this.apiUrl = localStorage.getItem("parkingapiUrl") ?? environment.baseUrl
   }
-
-
 
   getVechileType( ) {
     return this.http.get(`${this.apiUrl}/api/GetAllVehicleType`);
@@ -26,4 +24,21 @@ export class MasterRepoService {
     return this.http.get(`${this.apiUrl}/api/GetVoucherTypesForPortal?vtypeId=${voucherId}`);
     
   }
+
+  generateParkingVoucher(VoucherId:number ){
+    let data = {voucherId : VoucherId}
+    return this.http.post(this.apiUrl + `/api/GenerateParkingVoucher`, data, this.getRequestOptionForPdfFile());
+
+
+  }
+
+  getRequestOptionForPdfFile() {
+    const httpOptions = {
+      responseType: 'blob' as 'json',
+  
+    };
+    return httpOptions;
+    }
+  
+
 }

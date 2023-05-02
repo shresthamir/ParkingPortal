@@ -11,7 +11,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
        
-        let token = localStorage.getItem('imsParkingToken');
+        let token = localStorage.getItem('ImsParkingToken');
         if (token) {
             request = request.clone({
                 setHeaders: {
