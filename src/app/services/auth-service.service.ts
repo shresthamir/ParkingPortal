@@ -15,7 +15,7 @@ export class AuthServiceService {
     public currentUser: Observable<User>;
 
   constructor(public http: HttpClient, public router: Router,) {
-    this.apiUrl = environment.baseUrl
+    this.apiUrl = localStorage.getItem("parkingapiUrl") ?? environment.baseUrl
    }
 
 
