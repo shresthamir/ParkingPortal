@@ -1,4 +1,5 @@
 {
+    "apiUrl1": "https://parkingportal.imswebpos.com:755/ParkingApi",
     "apiUrl": "http://192.168.125.199:1053",
     "Version": "1.0.0.1"
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs';
 import { ValidationService } from 'src/app/_helperService/validate.service';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 
@@ -19,15 +20,15 @@ export class ChangePasswordComponent {
 
 
 
-  constructor(  public router: Router,public authService: AuthServiceService
-    ,private v : ValidationService
-    ){
-    
+  constructor(private route: ActivatedRoute, public router: Router, public authService: AuthServiceService
+    , private v: ValidationService
+  ) {
+
   }
   ngOnInit(): void {
     this.changePasswordForm = new FormGroup(
       {
-        oldPassword : new FormControl('',[Validators.required]),
+        oldPassword: new FormControl(''),
         newPassword: new FormControl('', [
           Validators.required,
           Validators.minLength(8),
@@ -40,7 +41,7 @@ export class ChangePasswordComponent {
         ),
       },
       this.v.passwordMatch('newPassword', 'newPasswordConfirm')
-    ); 
+    );
   }
   get f() { return this.changePasswordForm.controls; }
 
@@ -49,8 +50,9 @@ export class ChangePasswordComponent {
   //   this.router.navigate(["/changePassword"]);
 
   // }
-  cancel(){
-    this.router.navigate(["/login"]);
+  cancel() {
+    console.log();
+    this.router.navigate([ this.route.snapshot.queryParams["returnUrl"] || "/login"]);
   }
   onSubmit(event: any) {
     if (this.changePasswordForm.invalid) {
@@ -73,7 +75,7 @@ export class ChangePasswordComponent {
       )
   }
 
-  get passwordControl():AbstractControl {
+  get passwordControl(): AbstractControl {
     return this.f.newPassword;
   }
 
@@ -87,12 +89,12 @@ export class ChangePasswordComponent {
     return this.passwordControl?.hasError('required')
       ? 'Please enter a valid password'
       : control.hasError('minlength')
-      ? 'The minimum password length is 8 characters'
-      : control.hasError('maxlength')
-      ? 'The maximum password length is 32 characters'
-      : control.hasError('invalidPasswordMinLowerCaseLetters')
-      ? 'The password must consists of lower/upper case & numeric characters.'
-      : '';
+        ? 'The minimum password length is 8 characters'
+        : control.hasError('maxlength')
+          ? 'The maximum password length is 32 characters'
+          : control.hasError('invalidPasswordMinLowerCaseLetters')
+            ? 'The password must consists of lower/upper case & numeric characters.'
+            : '';
   }
 
   public getConfirmPasswordError() {
@@ -100,8 +102,8 @@ export class ChangePasswordComponent {
     return control.hasError('required')
       ? 'Please confirm the  password'
       : control.hasError('passwordMismatch')
-      ? 'The passwords do not match'
-      : '';
+        ? 'The passwords do not match'
+        : '';
   }
 
 }

@@ -45,7 +45,7 @@ export class LoginComponent {
         if (data.status == "ok") {
        
     console.log('datta', data);
-          sessionStorage.setItem('PakingUserName', data.result.userName);
+          sessionStorage.setItem('UserName', data.result.user.userName);
           sessionStorage.setItem('USER_PROFILE', JSON.stringify(data.result));
           localStorage.setItem('ImsParkingToken', data.result.token);
           if (data.message == "Password Expired"){

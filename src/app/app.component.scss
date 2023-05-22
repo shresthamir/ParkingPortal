@@ -1,0 +1,36 @@
+.copyright{
+    
+    position: fixed;
+    bottom: 0;
+    // left: 100px;
+    background: #fff;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    p{
+        margin-bottom: 0;
+        padding: 5px 0;
+        font-size: 12px;
+        @media screen and (max-width:991px) {
+             padding: 5px 0;
+            
+            &:nth-child(3){
+                display: none;
+            }
+        
+            
+        }
+        @media screen and (max-width:768px) {
+           
+           
+           &:nth-child(1){
+               display: none;
+           }
+       
+           
+       }
+        
+
+    }
+   
+}

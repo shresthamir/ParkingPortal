@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterStateSnapshot  } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
   UserProfile: any;
-
+  public ProfileDropdown: boolean = false;
   constructor(private router: Router){
 
     let UserProfileValue: any = (sessionStorage.getItem('USER_PROFILE'));
@@ -24,6 +24,10 @@ export class HeaderComponent {
     localStorage.removeItem('ImsParkingToken');
     this.router.navigate(['/login']);
     return true;
+  }
+
+  ChangePassword(id: any) {
+    this.router.navigate(['/changePassword'], { queryParams: { returnUrl:this.router.routerState.snapshot.url }})
   }
 
 }

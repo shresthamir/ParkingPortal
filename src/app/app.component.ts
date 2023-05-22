@@ -8,12 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'imsParking';
-
+  currentYear:Number;
 
   constructor( public http: HttpClient){
     this.http.get("/assets/appConfig.json")
     .subscribe((data:any)=>{
       localStorage.setItem("parkingapiUrl", data.apiUrl)        
     });
+
+    this.currentYear = new Date().getFullYear();
   }
 }

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg  header-top fixed-top " style=" background: #005cb3!important;">
-  <a class="navbar-brand"  style="color:#fff">PAKIMS</a>
+  <a class="navbar-brand"  style="color:#fff">Parking Pass Portal</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"><img src="../../../assets/menuicon.png" alt="" style="width: 35px;"></span>
   </button>
@@ -10,13 +10,21 @@
           <span class="sr-only">(current)</span>
         </a>
       </li> -->
-    
-      <li class="nav-item">
-        <a class="nav-link"> {{UserProfile.user.userName}}</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" (click)="signout()" style="cursor: pointer;">Sign Out</a>
-        </li>
+
+      <div class="profile" id="profileId" (click)="ProfileDropdown = !ProfileDropdown">
+        <img class="profile-img" src="../../../../assets/icons/user.svg" alt="">
+        <span style="font-weight: bold; padding-left: 5px; padding-top:5px;color:#fff">{{UserProfile.user.userName}}</span>
+        <img class="downarrow" src="../../../assets/icons/downarrow.png" alt="">
+
+        <div class="profileDropdown" [class.Showdropdown]="ProfileDropdown">
+            <ul>
+                <li (click)="signout()">Sign Out</li>
+                <li id="ChangePasswordBtn" (click)="ChangePassword('changePasswordPop')">Change Password</li>
+            </ul>
+        </div>
+
+    </div>   
+     
     </ul>
   </div>
 </nav>
