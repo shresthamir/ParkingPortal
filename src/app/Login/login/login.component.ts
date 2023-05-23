@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SnackBarService } from 'src/app/_helperService/snack-bar.service';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 
 
@@ -11,7 +13,7 @@ import { AuthServiceService } from 'src/app/services/auth-service.service';
 })
 export class LoginComponent {
 
-  loginForm: FormGroup ;
+  loginForm: FormGroup;
   username = "";
   password = "";
   // errorMsg = "";
@@ -21,7 +23,8 @@ export class LoginComponent {
   constructor(public formBuilder: FormBuilder,
     public route: ActivatedRoute,
     public router: Router,
-    public authService: AuthServiceService,){
+    public snackBarService: SnackBarService,
+    public authService: AuthServiceService,) {
 
   }
 
@@ -41,22 +44,26 @@ export class LoginComponent {
       return;
     }
     this.authService.login(this.f.username.value, this.f.password.value)
-      .subscribe((data:any) => {
-        if (data.status == "ok") {
-       
-    console.log('datta', data);
-          sessionStorage.setItem('UserName', data.result.user.userName);
-          sessionStorage.setItem('USER_PROFILE', JSON.stringify(data.result));
-          localStorage.setItem('ImsParkingToken', data.result.token);
-          if (data.message == "Password Expired"){
-            this.router.navigate(["/changePassword"]);
+      .subscribe({
+        next: (data: any) => {
+          if (data.status == "ok") {
+            console.log('datta', data);
+            sessionStorage.setItem('UserName', data.result.user.userName);
+            sessionStorage.setItem('USER_PROFILE', JSON.stringify(data.result));
+            localStorage.setItem('ImsParkingToken', data.result.token);
+            if (data.message == "Password Expired") {
+              let snackBarRef =  this.snackBarService.openSnackBar("You need to change password to continue.");
+              snackBarRef.afterDismissed().subscribe(() => {
+                this.router.navigate(["/changePassword"]);
+              });
+            }
+            else {
+                this.router.navigate(["/dashbaordComponent"]);
+            }
           }
-
-          else {
-            this.router.navigate(["/dashbaordComponent"]);
-         
-            
-          }
+        },
+        error: (e: HttpErrorResponse) => {
+          this.snackBarService.openSnackBar( e.error.message);
         }
       })
   }

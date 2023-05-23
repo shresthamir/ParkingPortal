@@ -11,6 +11,9 @@ import { DashboardComponent } from './main-content/dashboard/dashboard.component
 import { JwtInterceptor } from './_helperService/jwt.interceptor';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HeaderComponent } from './main-content/header/header.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -25,9 +28,11 @@ import { HeaderComponent } from './main-content/header/header.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS , useClass: JwtInterceptor, multi: true },{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [{ provide: HTTP_INTERCEPTORS , useClass: JwtInterceptor, multi: true },{provide: LocationStrategy, useClass: HashLocationStrategy},MatNativeDateModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

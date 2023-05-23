@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, Observable, of, throwError } from 'rxjs';
 import { Token } from '@angular/compiler';
 import { Router } from '@angular/router';
 
@@ -27,7 +27,8 @@ export class JwtInterceptor implements HttpInterceptor {
                     alert(error.error.message);
                 if (error.status === 401 || error.status === 403)
                     this.router.navigate(['/login']);
-                return of(new HttpResponse({ body: {}, status: 0 }));
+                //return of(new HttpResponse({ body: {}, status: 0 }));
+                return throwError(() => error);
             })
         ) as any;
     }

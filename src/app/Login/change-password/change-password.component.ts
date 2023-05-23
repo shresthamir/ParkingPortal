@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
+import { SnackBarService } from 'src/app/_helperService/snack-bar.service';
 import { ValidationService } from 'src/app/_helperService/validate.service';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 
@@ -21,7 +23,8 @@ export class ChangePasswordComponent {
 
 
   constructor(private route: ActivatedRoute, public router: Router, public authService: AuthServiceService
-    , private v: ValidationService
+    , private v: ValidationService,
+    private snackBarService :SnackBarService
   ) {
 
   }
@@ -52,27 +55,29 @@ export class ChangePasswordComponent {
   // }
   cancel() {
     console.log();
-    this.router.navigate([ this.route.snapshot.queryParams["returnUrl"] || "/login"]);
+    this.router.navigate([this.route.snapshot.queryParams["returnUrl"] || "/login"]);
   }
   onSubmit(event: any) {
     if (this.changePasswordForm.invalid) {
       return;
     }
     this.authService.changePassowrd(this.f.oldPassword.value, this.f.newPassword.value)
-      .subscribe((data) => {
-        if (data.status == "ok") {
-          this.authService.login(sessionStorage.getItem("UserName") || '', this.f.newPassword.value)
-            .subscribe((data) => {
-              if (data.status == "ok") {
-                // sessionStorage.setItem('UserName', data.usersInfo.userId)
-                sessionStorage.setItem('USER_PROFILE', JSON.stringify(data.result));
-                localStorage.setItem('ImsParkingToken', data.result.token);
-                this.router.navigate(["/dashbaordComponent"]);
-              }
-            })
-        }
-      }
-      )
+      .subscribe({
+        next: (data) => {
+          if (data.status == "ok") {
+            this.authService.login(sessionStorage.getItem("UserName") || '', this.f.newPassword.value)
+              .subscribe((data) => {
+                if (data.status == "ok") {
+                  // sessionStorage.setItem('UserName', data.usersInfo.userId)
+                  sessionStorage.setItem('USER_PROFILE', JSON.stringify(data.result));
+                  localStorage.setItem('ImsParkingToken', data.result.token);
+                  this.router.navigate(["/dashbaordComponent"]);
+                }
+              })
+          }
+        },
+        error: (e: HttpErrorResponse) => this.snackBarService.openSnackBar(e.error.message)
+      })
   }
 
   get passwordControl(): AbstractControl {
