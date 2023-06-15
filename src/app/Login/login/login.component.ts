@@ -52,18 +52,24 @@ export class LoginComponent {
             sessionStorage.setItem('USER_PROFILE', JSON.stringify(data.result));
             localStorage.setItem('ImsParkingToken', data.result.token);
             if (data.message == "Password Expired") {
-              let snackBarRef =  this.snackBarService.openSnackBar("You need to change password to continue.");
+              let snackBarRef = this.snackBarService.openSnackBar("You need to change password to continue.");
               snackBarRef.afterDismissed().subscribe(() => {
                 this.router.navigate(["/changePassword"]);
               });
             }
             else {
-                this.router.navigate(["/dashbaordComponent"]);
+              this.router.navigate(["/dashbaordComponent"]);
             }
           }
         },
-        error: (e: HttpErrorResponse) => {
-          this.snackBarService.openSnackBar( e.error.message);
+        error: (error: HttpErrorResponse) => {
+          if (error && error.error && error.error.message){
+            this.snackBarService.openSnackBar(error.error.message);
+          }
+          else {
+            this.snackBarService.openSnackBar(error.status + ":" + error.statusText);
+          }
+
         }
       })
   }
